@@ -26,8 +26,11 @@ var process = function (recieved_message){
                 console.log("Very sad: " + err);
             }
         );
-    } else if(recieved_message.match(/thank\sy?o?u)/i)){
+    } else if(recieved_message.match(/thank\sy?o?u/i)){
         response = "Welcome! I am always here to help you. Do you have any other things to ask me?";
+    } else if(recieved_message.match(/\s?(hi|hello)(\s|\.|!)?/i)){
+        response = ":D";
+        // TODO say good morning | good afernoon depending on time
     } else {
         response = "Sorry, I didn't understand you. Write me which course note you want.";
     }
