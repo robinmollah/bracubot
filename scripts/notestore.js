@@ -15,8 +15,24 @@ let serviceAccount = require('../bracu-bot-96c1c85a031b.json');
 
 const db = admin.firestore();
 
-module.exports.getCourseLink = function(courseId){
-  // TODO fetch course link
+module.exports.getCourseLink = async function(courseId){
+    console.log(courseId);
+  var query = await db.collection('verified_notes').doc(courseId).get()
+      .then(snapshot => {
+          let snap = snapshot.data();
+          if(snap){
+              if(snap.verified){
+                  return "Sure. Here is the link of " + snap.name + " course: " + snap.link;
+              } else {
+                  return "The note is not yet verified by admin. It will be verified very soon. " + snap.link;
+              }
+          } else {
+              return "We don't have the note of this subject yet. Do you want to submit yours?";
+          }
+      }, err => {
+        console.log("notestore: Error fetching notes: " + err);
+      });
+  return query;
 };
 
 module.exports.getVerifiedNotes = async function(){

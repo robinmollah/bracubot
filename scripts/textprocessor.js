@@ -5,12 +5,15 @@ var process = function (recieved_message){
     var response;
     var courseId = getCourseId(recieved_message);
     if(courseId){
-        var course_link = notestore.getCourseLink(courseId);
-        courseId = String(courseId).toUpperCase();
-        response = `I dont have ${courseId} course note`;
-        response += " " + course_link;
-        fbapi.send(response);
-    } else if(recieved_message.match(/all\snotes/i)){
+        notestore.getCourseLink(courseId[0]).then(
+            note => {
+                console.log(note);
+                fbapi.send(note);
+            }, err => {
+                console.log("textprocessor: Error fetching notes: " + err);
+            }
+        );
+    } else if(recieved_message.match(/(all\snotes)|which\snotes/i)){
         notestore.getVerifiedNotes().then(
             value => {
                 console.log(JSON.stringify(value));
@@ -23,10 +26,15 @@ var process = function (recieved_message){
                 console.log("Very sad: " + err);
             }
         );
+    } else if(recieved_message.match(/thank\sy?o?u)/i)){
+        response = "Welcome! I am always here to help you. Do you have any other things to ask me?";
     } else {
-        response = `recieved: ${recieved_message}`;
+        response = "Sorry, I didn't understand you. Write me which course note you want.";
     }
-    return response;
+    if(response){
+        fbapi.send(response);
+    }
+
 };
 
 exports.process = process;
