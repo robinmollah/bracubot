@@ -1,7 +1,8 @@
 let express = require('express');
 const bodyParser = require('body-parser');
 const env = require('dotenv').config();
-const request = require('request');
+const fbapi = require('./scripts/fbapi');
+const textProcessor = require('./scripts/textprocessor');
 let app = express();
 
 app.use(bodyParser.json());
@@ -15,10 +16,9 @@ app.post('/webhook', (req, res) => {
         body.entry.forEach(function(entry) {
 
             let webhook_event = entry.messaging[0];
-            console.log(webhook_event);
 
             let sender_id = webhook_event.sender.id;
-            console.log('Sender PSID: ' + sender_id);
+            fbapi.setSenderId(sender_id);
 
             if(webhook_event.message){
                 handleMessage(sender_id, webhook_event.message);
@@ -64,14 +64,12 @@ app.get('/webhook', (req, res) => {
 // Handles messages events
 function handleMessage(sender_id, received_message) {
     let response;
-
     if(received_message.text){
-        response = {
-            'text' : `Recievied message: ${received_message.text}`
-        };
+        textProcessor.process(received_message.text);
     }
-
-    callSendAPI(sender_id, response);
+    if(response){
+        fbapi.send(response);
+    }
 }
 
 // Handles messaging_postbacks events
@@ -79,27 +77,4 @@ function handlePostback(sender_id, received_postback) {
 
 }
 
-// Sends response messages via the Send API
-function callSendAPI(sender_id, response) {
-    let request_body;
-    request_body = {
-        'recipient': {
-            'id' : sender_id
-        },
-        'message' : response
-    };
-    console.log(request_body);
-    request({
-        "uri": "https://graph.facebook.com/v2.6/me/messages",
-        "qs": {"access_token": process.env.PAGE_ACCESS_TOKEN},
-        "method": "POST",
-        "json": request_body
-    }, (err, res, id) => {
-        if(!err){
-            console.log("messages sent!");
-        } else {
-            console.error("Unable to send message: " + err);
-        }
-    });
-}
 module.exports = app;
