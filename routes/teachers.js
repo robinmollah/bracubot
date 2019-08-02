@@ -17,7 +17,7 @@ router.get('/teacher/name/:name',function(req, res){
 });
 
 router.get('/teacher/test/:test', function(req, res){
-    res.send(tagger.tag(req.params));
+    res.send(tagger.tag(req.params.test));
 });
 
 module.exports = router;
