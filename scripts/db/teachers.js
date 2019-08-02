@@ -1,4 +1,4 @@
-var DB = require('../db/conn');
+var DB = require('./conn');
 var debug = require('debug')('bracubot:server');
 
 var teachers = {

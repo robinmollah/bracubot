@@ -1,4 +1,7 @@
 var mysql = require("mysql");
+var debug = require('debug')('bracubot:server');
+const env = require('dotenv').config();
+
 
 var pool = mysql.createPool({
     connectionLimit : 10,
@@ -14,6 +17,7 @@ var DB = (function () {
     function _query(query, params, callback) {
         pool.getConnection(function (err, connection) {
             if (err) {
+                debug(err);
                 connection.release();
                 callback(null, err);
                 throw err;

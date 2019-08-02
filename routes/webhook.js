@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-
+const textProcessor = require('../scripts/textprocessor');
+const fbapi = require('../scripts/fbapi');
 
 // Creates the endpoint for our webhook
 router.post('/webhook', (req, res) => {
@@ -9,7 +10,6 @@ router.post('/webhook', (req, res) => {
     if (body.object === 'page') {
         // Iterates over each entry - there may be multiple if batched
         body.entry.forEach(function(entry) {
-
             let webhook_event = entry.messaging[0];
 
             let sender_id = webhook_event.sender.id;
@@ -56,5 +56,17 @@ router.get('/webhook', (req, res) => {
     }
 });
 
+// Handles messages events
+function handleMessage(sender_id, received_message) {
+    console.log("Recieved: " + received_message);
+    if(received_message.text){
+        textProcessor.process(received_message.text);
+    }
+}
+
+// Handles messaging_postbacks events
+function handlePostback(sender_id, received_postback) {
+
+}
 
 module.exports = router;

@@ -22,11 +22,10 @@ let regex_list = [
 let tag = function (msg) {
     let regex;
     for(regex of regex_list){
-        debug(msg);
         let match = msg.match(new RegExp(regex.pattern, 'gi'));
         if(!match) continue;
-        debug(match);
-        return match;
+        regex.params.value = match[0];
+        return regex;
     }
     return null;
 };
