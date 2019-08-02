@@ -28,7 +28,7 @@ var process = function (recieved_message){
         );
     } else if(recieved_message.match(/thank\sy?o?u/i)){
         response = "Welcome! I am always here to help you. Do you have any other things to ask me?";
-    } else if(recieved_message.match(/\s?(hi|hello)(\s|\.|!)?/i)){
+    } else if(recieved_message.match(/\s?(hi|hello|he(y{0,100}))(\s|\.|!)?/i)){
         response = ":D";
         // TODO say good morning | good afernoon depending on time
     } else {
@@ -37,7 +37,6 @@ var process = function (recieved_message){
     if(response){
         fbapi.send(response);
     }
-
 };
 
 exports.process = process;
