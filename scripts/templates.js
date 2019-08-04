@@ -7,19 +7,6 @@ templates["teacher"] = "%name%. Initial: %initial%. Room number: %room_number%. 
 templates["greetings"] = [":D", "Hi", "Hello :D", "Heyyyy ^_^"];
 templates["mail_id"] = "Here is the mail address of %name% sir: %mail_id%";
 
-let temple = {
-    asking: {
-        'note': {
-            out : 'Here is the notes of %course_code% : %course_name% course: %link%',
-            query: 'SELECT notes.course_code, notes.link, courses.course_name FROM notes INNER JOIN courses ON ' +
-                'courses.course_code = notes.course_code WHERE notes.course_code = ? AND verified = 1',
-        },
-        'greetings': {
-            out: ':D',
-        }
-    },
-};
-
 function getTemplate(asking){
     if(util.isArray(templates[asking])){
         let take = Math.floor(Math.random() * templates[asking].length);
@@ -31,25 +18,23 @@ function getTemplate(asking){
 
 let askingInflater = function(tagged, reply){
         function callback(data, err){
-            console.log(data);
             if(!data) throw err;
             data = data[0];
             var property;
-            var str = temple.asking[tagged.asking].out;
+            let str = tagged.out;
             let res = str;
             for(property in data){
-                var prevStr = str;
-                res = res.replace("%" + property +"%", data[property]);
+                let prevStr = str;
+                res = res.replace("%" + property + "%", data[property]);
                 if(prevStr == res) console.error('Something wrong while replacing.');
             }
             reply(res);
         };
         // notes.getTemplate(tagged.params.value, callback);
-        let asking = temple.asking[tagged.asking];
-        if(asking.query){
-            DB.query(asking.query, tagged.params.value, callback);
+        if(tagged.query){
+            DB.query(tagged.query, [tagged.params.value], callback);
         } else {
-            reply(asking.out);
+            reply(tagged.out);
         }
 };
 

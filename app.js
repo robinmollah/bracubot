@@ -7,5 +7,8 @@ let app = express();
 app.use(bodyParser.json());
 app.use(webhooks);
 app.use(teachers);
+app.get('/test',function(req,res) {
+    res.sendFile('F:/test.html');
+});
 
 module.exports = app;

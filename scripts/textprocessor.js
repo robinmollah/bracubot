@@ -16,6 +16,7 @@ let process = function (recieved_message){
     function reply(msg){
         if(!msg) return fbapi.send('Sorry can\'t understand you.');
         fbapi.send(msg);
+        return msg;
     }
 };
 
