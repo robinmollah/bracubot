@@ -1,4 +1,3 @@
-const notestore = require('./notestore');
 const fbapi = require('./fbapi');
 const tagger = require('./tagger');
 const templates = require('./templates');

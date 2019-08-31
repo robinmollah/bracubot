@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(webhooks);
 app.use(teachers);
 app.get('/test',function(req,res) {
-    res.sendFile('F:/test.html');
+    res.sendFile(__dirname + '/index.html');
 });
 
 module.exports = app;
