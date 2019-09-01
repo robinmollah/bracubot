@@ -38,7 +38,8 @@ let askingInflater = function(tagged, reply){
         reply(resultingStr);
     };
     if(tagged.query){
-        DB.query(tagged.query, [tagged.params.value], callback);
+        console.log("Values: " + tagged.params.value);
+        DB.query(tagged.query, tagged.params.value, callback);
     } else {
         console.error("Query is not defined.");
         reply(tagged.out);
