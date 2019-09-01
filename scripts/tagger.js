@@ -13,7 +13,7 @@ let regex_list = [
         query: 'SELECT notes.course_code, notes.link, courses.course_name FROM notes INNER JOIN courses ON ' +
             'courses.course_code = notes.course_code WHERE notes.course_code = ? AND verified = 1',
     }, {
-        pattern: "(hi|hello|he(y)+)",
+        pattern: "^(hi|hello|he(y)+)",
         asking: "greetings",
         params: {
             name: "greetings",
@@ -50,12 +50,25 @@ let regex_list = [
         out: 'Full name of %initial% is %name%',
         query: 'SELECT name, initial FROM teachers where initial = ?',
     },{
-        pattern: 'who takes (\\w{3}\\d{3}) course',
-        asking: 'courses_takes',
+        pattern: 'who takes (\\w{3}\\d{3})(?: course)?',
+        asking: 'initial',
+        multi: true,
         params: {
             name: 'course_code',
             value: '',
         },
+        out: '%course_code% is taken by: %initial%',
+        query: 'SELECT DISTINCT initial, course_code FROM course_sections WHERE course_code = ?;',
+    },{
+        pattern: 'which courses are taken by (\\w{3})',
+        asking: 'course_code',
+        multi: true,
+        params: {
+            name: 'initial',
+            value: '',
+        },
+        out: '%initial% takes: %course_code%',
+        query: 'SELECT DISTINCT course_code, initial FROM course_sections WHERE initial = \'wra\';',
     },{
         pattern: 'room number of (\\w{3})\\b(?: sir)?\\??',
         asking: 'room_number',

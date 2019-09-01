@@ -8,6 +8,7 @@ module.exports.test = test;
 let process = function (recieved_message){
     let tagged = tagger.tag(recieved_message);
     if(tagged){
+        console.error("Tagged");
         templates.populate(tagged, reply);
     } else {
         reply();
