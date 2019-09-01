@@ -2,33 +2,34 @@ let util = require('util');
 let debug = require('debug')('bracubot:server');
 let DB = require('./db/conn');
 
-let askingInflater = function(tagged, reply){
+let askingInflater = function(pattern, values, reply){
     function callback(data, err){
         if(!data) throw err;
-        if(!tagged.out){
+        if(!pattern.template){
             console.error('Output template is not defined.');
         }
         if(!data){
             reply("There is no record found for your query.");
             return;
         }
-        if(!tagged.multi){
+        if(!pattern.multi){
             if(data.length > 1){
+                console.log(data);
                 console.error("Multiple result found for single type query.");
             }
             data = data[0];
         } else {
             let teacher;
             let resultingData = {};
-            resultingData[tagged.asking] = [];
+            resultingData[pattern.asking] = [];
             for(teacher in data){
-                resultingData[tagged.asking].push(data[teacher][tagged.asking]);
+                resultingData[pattern.asking].push(data[teacher][pattern.asking]);
             }
             data = data[0];
-            data[tagged.asking] = resultingData[tagged.asking];
+            data[pattern.asking] = resultingData[pattern.asking];
         }
         let property;
-        let str = tagged.out;
+        let str = pattern.template;
         let resultingStr = str;
         for(property in data){
             let prevStr = str;
@@ -37,16 +38,16 @@ let askingInflater = function(tagged, reply){
         }
         reply(resultingStr);
     };
-    if(tagged.query){
-        console.log("Values: " + tagged.params.value);
-        DB.query(tagged.query, tagged.params.value, callback);
+    if(pattern.query){
+        values = values + "";
+        DB.query(pattern.query, values.split(","), callback);
     } else {
+        console.log(pattern);
         console.error("Query is not defined.");
-        reply(tagged.out);
+        reply(pattern.template);
     }
 };
 
-module.exports.populate = function (tagged, reply) {
-    debug('populating');
-    askingInflater(tagged,reply);
+module.exports.populate = function (tagged, values, reply) {
+    askingInflater(tagged, values ,reply);
 };

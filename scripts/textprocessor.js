@@ -6,18 +6,22 @@ module.exports.test = test;
 
 
 let process = function (recieved_message){
-    let tagged = tagger.tag(recieved_message);
-    if(tagged){
-        console.error("Tagged");
-        templates.populate(tagged, reply);
-    } else {
-        reply();
-    }
-    function reply(msg){
-        if(!msg) return fbapi.send('Sorry can\'t understand you.');
-        fbapi.send(msg);
-        return msg;
-    }
+    tagger.fetchPatterns(function(data){
+        return tagger.tag(recieved_message, data, tagEnd);
+    });
+    function tagEnd(pattern, values){
+        if(pattern) { // No pattern matched
+            templates.populate(pattern, values, reply);
+        } else {
+            reply();
+        }
+    };
+};
+
+let reply = function(msg){
+    if(!msg) return fbapi.send('Sorry can\'t understand you.');
+    fbapi.send(msg);
+    return msg;
 };
 
 exports.process = process;
