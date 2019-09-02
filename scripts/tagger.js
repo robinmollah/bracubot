@@ -14,7 +14,7 @@ let tag = function (msg, regex_list, callback) {
         let pat = new RegExp(pattern.pattern, 'gim');
         let match = pat.exec(msg);
         if(!match) continue;
-        if(pattern.param_name == 'name'){
+        if(pattern.query.indexOf('LIKE') > -1){
             match[1] = '%' + match[1] + '%'; // Resolves SQL Like statement issue
         }
         console.log(match);
