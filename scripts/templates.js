@@ -1,21 +1,36 @@
 let util = require('util');
 let debug = require('debug')('bracubot:server');
 let DB = require('./db/conn');
+let SS = require('./special_search');
 
-let askingInflater = function(pattern, values, reply){
+let askingInflater = function(pattern, matched, reply){
+    if(pattern.query){
+        if(pattern.query.indexOf("SPECIAL(")){
+            let specialFunc = pattern.query.match(/SPECIAL\((\w+)\)/i);
+            matched[1] = SS.run(specialFunc[1], matched[1]); // Special parameter is always the second one
+            pattern.query = pattern.query.replace(/SPECIAL\(\w*\)/i, "?");
+        }
+        matched = matched + "";
+        console.log(matched);
+        DB.query(pattern.query, matched.split(","), callback);
+    } else {
+        console.error("Query is not defined for pattern: ");
+        console.log(pattern);
+        reply(pattern.template);
+    }
     function callback(data, err){
         if(!data) throw err;
         if(!pattern.template){
-            console.error('Output template is not defined.');
+            throw new Error("Template is not defined.");
         }
         if(!data){
-            reply("There is no record found for your query.");
+            reply("There is no information found regarding your query.");
             return;
         }
         if(!pattern.multi){
             if(data.length > 1){
                 console.log(data);
-                console.error("Multiple result found for single type query.");
+                throw new Error("Multiple result found for single type query");
             }
             data = data[0];
         } else {
@@ -38,14 +53,6 @@ let askingInflater = function(pattern, values, reply){
         }
         reply(resultingStr);
     };
-    if(pattern.query){
-        values = values + "";
-        DB.query(pattern.query, values.split(","), callback);
-    } else {
-        console.log(pattern);
-        console.error("Query is not defined.");
-        reply(pattern.template);
-    }
 };
 
 module.exports.populate = function (tagged, values, reply) {
