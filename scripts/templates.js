@@ -5,7 +5,7 @@ let SS = require('./special_search');
 
 let askingInflater = function(pattern, matched, reply){
     if(pattern.query){
-        if(pattern.query.indexOf("SPECIAL(")){
+        if(pattern.query.indexOf("SPECIAL(") > -1){
             let specialFunc = pattern.query.match(/SPECIAL\((\w+)\)/i);
             matched[1] = SS.run(specialFunc[1], matched[1]); // Special parameter is always the second one
             pattern.query = pattern.query.replace(/SPECIAL\(\w*\)/i, "?");
