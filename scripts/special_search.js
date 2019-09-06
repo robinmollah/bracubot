@@ -19,7 +19,7 @@ function consultation(params){
 
 }
 
-function day(str){
+function day(str = 'today'){
     let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     let today = new Date();
     let tomorrow = new Date();
@@ -31,7 +31,7 @@ function day(str){
         "today": today.getDay(),
         "tomorrow": tomorrow.getDay(),
         "yesterday": yesterday.getDay()
-    }
+    };
     return days[resDays[str]];
 }
 

@@ -24,7 +24,7 @@ module.exports.send = function(response){
         "json": request_body
     }, (err, res, id) => {
         if(!err){
-            console.log("messages sent!");
+            console.log("messages sent! " + res);
         } else {
             console.error("Unable to send message: " + err);
         }
