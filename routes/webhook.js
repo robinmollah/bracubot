@@ -66,7 +66,16 @@ function handleMessage(sender_id, received_message) {
 
 // Handles messaging_postbacks events
 function handlePostback(sender_id, received_postback) {
-
+    if(received_postback == 'get_started'){
+        fbapi.send("You can write \"help\" anytime to get this information.\n" +
+            "\tAsk any type of questions. For instance:\n" +
+            "\t1. email id of sli?\n" +
+            "\t2. mail id of annajiat sir?\n" +
+            "\t3. Who takes xxx110 course?\n" +
+            "\t4. room number of dzk?\n" +
+            "\t5. full name of mih?\n" +
+            "\tAs per your request other features will be added as well.");
+    }
 }
 
 module.exports = router;
