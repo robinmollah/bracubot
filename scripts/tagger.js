@@ -6,11 +6,12 @@ let regex_list = function(fetchedPatterns){
     function callback(data, err){
         fetchedPatterns(data);
     }
-}
+};
 
-let tag = function (msg, regex_list, callback) {
+let tag = function (msg, pattern_list, callback) {
+    console.log("Pattern List: " + pattern_list);
     let pattern;
-    for(pattern of regex_list){
+    for(pattern of pattern_list){
         let pat = new RegExp(pattern.pattern, 'gim');
         let match = pat.exec(msg);
         if(!match) continue;

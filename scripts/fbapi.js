@@ -39,7 +39,7 @@ let profile = function(json_body){
         "json": json_body
     }, (err,res,id) => {
         if(!err) console.log("Profile has been updated!");
-        else console.log("Failed to update profile.");
+        else console.log("Failed to update profile." + err);
     });
 };
 
@@ -62,4 +62,33 @@ module.exports.setGreetings = function(greetings){
         ]
     };
     profile(request_body);
+};
+
+module.exports.setPersistentMenu = function(){
+    let jsonbody = {
+        "persistent_menu": [
+            {
+                "locale": "default",
+                "composer_input_disabled": false,
+                "call_to_actions": [
+                    {
+                        "type": "postback",
+                        "title": "Help",
+                        "payload": "get_started"
+                    },
+                    {
+                        "type": "postback",
+                        "title": "About us",
+                        "payload": "about_us"
+                    },
+                    {
+                        "type": "postbakck",
+                        "title": "Terms of use",
+                        "payload": "terms"
+                    }
+                ]
+            }
+        ]
+    };
+    profile(jsonbody);
 };
