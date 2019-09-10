@@ -23,7 +23,7 @@ let askingInflater = function(pattern, matched, reply){
         if(!pattern.template){
             throw new Error("Template is not defined.");
         }
-        if(!data){
+        if(!data.length){
             reply("There is no information found regarding your query.");
             return;
         }

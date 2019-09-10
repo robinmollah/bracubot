@@ -2,3 +2,5 @@ bracu-bot-96c1c85a031b.json
 node_modules/
 .idea/
 .env*
+bfg.jar
+app.yaml
