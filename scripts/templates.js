@@ -3,7 +3,7 @@ let debug = require('debug')('bracubot:server');
 let DB = require('./db/conn');
 let SS = require('./special_search');
 
-let askingInflater = function(pattern, matched, reply){
+let populate = function(pattern, matched, reply){
     if(pattern.query){
         if(pattern.query.indexOf("SPECIAL(") > -1){
             let specialFunc = pattern.query.match(/SPECIAL\((\w+)\)/i);
@@ -21,8 +21,9 @@ let askingInflater = function(pattern, matched, reply){
     function callback(data, err){
         if(!data) throw err;
         if(!pattern.template){
-            throw new Error("Template is not defined.");
+            console.error("Template is not defined.");
         }
+        console.log(data);
         if(!data.length){
             reply("There is no information found regarding your query.");
             return;
@@ -30,7 +31,7 @@ let askingInflater = function(pattern, matched, reply){
         if(!pattern.multi){
             if(data.length > 1){
                 console.log(data);
-                throw new Error("Multiple result found for single type query");
+                console.error("Multiple result found for single type query");
             }
             data = data[0];
         } else {
@@ -56,5 +57,5 @@ let askingInflater = function(pattern, matched, reply){
 };
 
 module.exports.populate = function (tagged, values, reply) {
-    askingInflater(tagged, values ,reply);
+    populate(tagged, values ,reply);
 };

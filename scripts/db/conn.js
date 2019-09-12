@@ -1,5 +1,4 @@
 var mysql = require("mysql");
-var debug = require('debug')('bracubot:server');
 const env = require('dotenv').config();
 
 
@@ -17,7 +16,7 @@ var DB = (function () {
     function _query(query, params, callback) {
         pool.getConnection(function (err, connection) {
             if (err) {
-                debug(err);
+                console.error(err);
                 connection.release();
                 callback(null, err);
                 throw err;
