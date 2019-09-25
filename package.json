@@ -12,6 +12,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "dotenv": "^7.0.0",
+    "ejs": "^2.7.1",
     "express": "^4.16.4",
     "firebase-admin": "^7.3.0",
     "http-errors": "~1.6.2",

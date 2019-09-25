@@ -2,6 +2,7 @@ let util = require('util');
 let debug = require('debug')('bracubot:server');
 let DB = require('./db/conn');
 let SS = require('./special_search');
+let failcases = require('./failcases');
 
 let populate = function(pattern, matched, reply){
     if(pattern.query){
@@ -25,7 +26,7 @@ let populate = function(pattern, matched, reply){
         }
         console.log(data);
         if(!data.length){
-            reply("There is no information found regarding your query.");
+            reply("There is no information found regarding your query.", "NP");
             return;
         }
         if(!pattern.multi){
