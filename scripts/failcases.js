@@ -6,8 +6,8 @@ function insertFailcase(query, type) {
     var insertion = DB.query("INSERT INTO failcases (query, type) VALUES ('" + query +
         "', '" + type + "');");
     insertion.then((data) => {
-        console.log(data);
-        DB.close();
+        // console.log(data);
+        // DB.close();
     });
 }
 

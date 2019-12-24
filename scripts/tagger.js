@@ -1,11 +1,15 @@
 let debug = require("debug")("bracubot:server");
-let DB = require('./db/conn');
+let DBPromise = require('./db/conn-promise');
 
 let regex_list = function(fetchedPatterns){
-    DB.query('SELECT * FROM patterns', null, callback);
-    function callback(data, err){
-        fetchedPatterns(data);
-    }
+    DBPromise.query('SELECT * FROM patterns', null).then(
+        (data) => {
+            fetchedPatterns(data);
+            // DBPromise.close();
+        }
+    ).catch((reason) => {
+        console.error(reason);
+    })
 };
 
 let tag = function (msg, pattern_list, callback) {
