@@ -1,6 +1,5 @@
 let express = require('express');
 const bodyParser = require('body-parser');
-var teachers = require('./routes/teachers');
 var webhooks = require('./routes/webhook');
 let unit_test = require('./scripts/test/unit_test');
 let app = express();
@@ -8,12 +7,18 @@ let path = require('path');
 
 app.use(bodyParser.json());
 app.use(webhooks);
-app.use(teachers);
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
 app.get('/test',function(req,res) {
-    res.sendFile(__dirname + '/test.html');
+    res.render('test.pug',{page : 'Hi', menuId: 4});
+});
+
+app.post('/test', function (req, res) {
+    let lab = require('./scripts/test/lab');
+    let body = req.body;
+    console.log('Body: ' + JSON.stringify(body));
+    lab.process(body.message, res);
 });
 
 app.get('/',function(req, res){

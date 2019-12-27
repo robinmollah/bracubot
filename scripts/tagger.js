@@ -1,7 +1,9 @@
 let debug = require("debug")("bracubot:server");
 let DBPromise = require('./db/conn-promise');
+const firestore = require('./db/firestore');
 
 let regex_list = function(fetchedPatterns){
+    /*
     DBPromise.query('SELECT * FROM patterns', null).then(
         (data) => {
             fetchedPatterns(data);
@@ -9,20 +11,26 @@ let regex_list = function(fetchedPatterns){
         }
     ).catch((reason) => {
         console.error(reason);
-    })
+    })*/
+
+    firestore.collection('patterns').get()
+        .then(snapshot => {
+            let patterns = new Array();
+            snapshot.forEach(doc => patterns.push(doc.data()));
+            fetchedPatterns(patterns);
+        })
+        .catch(err => console.log("error fetching patterns: " + err));
 };
 
 let tag = function (msg, pattern_list, callback) {
-    console.log("Pattern List: " + pattern_list);
     let pattern;
     for(pattern of pattern_list){
         let pat = new RegExp(pattern.pattern, 'gim');
         let match = pat.exec(msg);
         if(!match) continue;
-        if(pattern.query.indexOf('LIKE') > -1){
+        if(pattern.query && pattern.query.indexOf('LIKE') > -1){
             match[1] = '%' + match[1] + '%'; // Resolves SQL Like statement issue
         }
-        console.log(match);
         match.shift();
         callback(pattern, match);
         return pattern;

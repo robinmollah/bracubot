@@ -1,0 +1,34 @@
+extends layout.pug
+
+block content
+    div.form-group
+        label(for="text") Text:
+        input(type="text" id="text" value="Hi").form-control
+        button(onclick="send()") Send
+        br
+        span(id="reply") Reply here
+
+        script.
+            function send(){
+                let text = document.getElementById("text").value;
+                console.log("Text: " + text);
+                if(!text)
+                {
+                    alert("Field cannot be empty");
+                    return;
+                }
+                $.ajax({
+                    url: 'test',
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify({"message": document.getElementById("text").value}),
+                    success: function (result) {
+                        let reply = document.getElementById("reply");
+                        reply.innerHTML += "<br/>" + result;
+                    },
+                    error: function (xhr, textStatus, error) {
+                        console.log("error: " + error);
+                    }
+                });
+            }

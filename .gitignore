@@ -4,3 +4,4 @@ node_modules/
 .env*
 bfg.jar
 app.yaml
+*.csv
