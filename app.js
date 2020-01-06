@@ -1,14 +1,36 @@
 let express = require('express');
 const bodyParser = require('body-parser');
-var webhooks = require('./routes/webhook');
+let webhooks = require('./routes/webhook');
+let api = require('./routes/api');
 let unit_test = require('./scripts/test/unit_test');
 let app = express();
 let path = require('path');
 
+
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
 app.use(bodyParser.json());
 app.use(webhooks);
+app.use(api);
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
+
 
 app.get('/test',function(req,res) {
     res.render('test.pug',{page : 'Hi', menuId: 4});
