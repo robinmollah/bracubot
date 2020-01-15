@@ -1,7 +1,8 @@
 let express = require('express');
 const bodyParser = require('body-parser');
 let webhooks = require('./routes/webhook');
-let api = require('./routes/api');
+let api = require('./routes/botapi');
+let usisApi = require('./routes/usis_api');
 let unit_test = require('./scripts/test/unit_test');
 let app = express();
 let path = require('path');
@@ -27,6 +28,8 @@ app.use(function (req, res, next) {
 });
 app.use(bodyParser.json());
 app.use(webhooks);
+
+app.use(usisApi);
 app.use(api);
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
