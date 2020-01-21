@@ -18,6 +18,9 @@ router.post("/teacher/initial", (req, res) => {
                 res.json({status: "failed", reason: "No matching faculty"});
                 return;
             }
+            if(snapshot.size > 1){
+                console.log("WARNING: More than one faculty same initial");
+            }
             snapshot.forEach((item) => {
                 console.log(item.id + " : " + JSON.stringify(item.data()));
                 res.json(item.data());
