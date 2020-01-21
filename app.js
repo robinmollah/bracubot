@@ -4,9 +4,9 @@ let webhooks = require('./routes/webhook');
 let api = require('./routes/botapi');
 let usisApi = require('./routes/usis_api');
 let unit_test = require('./scripts/test/unit_test');
+let connector = require('./routes/connector');
 let app = express();
 let path = require('path');
-
 
 app.use(function (req, res, next) {
 
@@ -31,9 +31,11 @@ app.use(webhooks);
 
 app.use(usisApi);
 app.use(api);
+app.use(connector);
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use('/', express.static(path.join(__dirname, '/public')));
 
 app.get('/test',function(req,res) {
     res.render('test.pug',{page : 'Hi', menuId: 4});
@@ -58,5 +60,6 @@ app.get('/privacy_policy',function(req,res){
 app.get('/unit_test', function(req, res){
    res.send(unit_test.test());
 });
+
 
 module.exports = app;

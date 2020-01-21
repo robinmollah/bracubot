@@ -1,0 +1,20 @@
+extends layout.pug
+
+block append head
+    script(src="/js/teacher_connector.js")
+block content
+
+    h1 #{title}
+    div(class="form-inline")
+        input(class="form-control" type="text" placeholder="Annajiat Alim Rasel" readonly="readonly")
+        button(class="btn btn-secondary" type="submit" disabled=disabled) annajiat@bracu.ac.bd
+
+        input(class="form-control" type="text" placeholder="Teacher Name")
+        button(class="btn btn-secondary" type="submit" disabled=disabled) TBA
+
+        br
+        button(onClick="addField()") Reload
+        button(onClick="update()") Submit
+        br
+        br
+        span #{ourdb}
