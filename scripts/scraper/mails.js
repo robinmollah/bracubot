@@ -17,8 +17,6 @@ axios(options).then(response => {
 
     const $ = cheerio.load(response.data);
     const rows = $('tr');
-    const names = $('td.views-field.views-field-title strong');
-    const mails =  $('td.views-field.views-field-field-faculty-emails a');
     console.log("[");
     for(let i = 0; i < rows.length; i++){
         let name = $(rows[i]).children('td.views-field.views-field-title').children('strong').text();
