@@ -6,3 +6,4 @@ node_modules/
 bfg.jar
 app.yaml
 *.csv
+class_routine_json2csv

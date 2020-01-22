@@ -16,9 +16,14 @@ let options = {
 axios(options).then(response => {
 
     const $ = cheerio.load(response.data);
+    const rows = $('tr');
+    const names = $('td.views-field.views-field-title strong');
     const mails =  $('td.views-field.views-field-field-faculty-emails a');
-    for(let i = 0; i < mails.length; i++){
-        console.log($(mails[i]).text());
+    console.log("[");
+    for(let i = 0; i < rows.length; i++){
+        let name = $(rows[i]).children('td.views-field.views-field-title').children('strong').text();
+        let mail = $(rows[i]).children('td.views-field.views-field-field-faculty-emails').children('a').text();
+        console.log(JSON.stringify({name: name, mail: mail})+",")
     }
-
+    console.log("]");
 }).catch(err => console.error(err));
