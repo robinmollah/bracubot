@@ -1,6 +1,5 @@
 const siteUrl = "https://www.bracu.ac.bd/academics/departments/mathematics-and-natural-sciences/mns-faculty-members";
 const axios = require('axios');
-// const rp = require('request-promise');
 const cheerio = require('cheerio');
 const https = require('https');
 
