@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-let DBPromise = require('E:\\Web Development\\The Magicians\\Projects\\bracubot\\scripts\\db/conn-promise');
+let DBPromise = require('../scripts/db/conn-promise.js');
 
 router .get('/bracu/connector', (req, res) => {
     // TODO you should query the database from here then pass it to the second param of the below method
