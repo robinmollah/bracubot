@@ -1,0 +1,16 @@
+extends layout.pug
+
+block append head
+    script(src="https://d3js.org/d3.v4.js")
+    script(src="https://cdn.jsdelivr.net/gh/holtzy/D3-graph-gallery@master/LIB/d3.layout.cloud.js")
+    script(src="https://canvasjs.com/assets/script/canvasjs.min.js")
+block content
+
+    script(src="/js/analytics.js")
+    div(class="text-center" style=("background-color: #e9f5ff;padding-top: 20px;"))
+        h1 Fail-Case Word Cloud
+        small (False Queries)
+        div(id="wordCloud")
+    div(style="padding-top: 20px")
+        h1.text-center Bar Chart
+        div(id="chartContainer" style="height: 370px; width: 100%;")
