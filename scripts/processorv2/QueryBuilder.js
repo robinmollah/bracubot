@@ -11,6 +11,7 @@ Example parseResult:
     {section: 1}
 ]
  */
+console.log("Building query for: " + sentence);
 let parseResult = [];
 for(let word of sentence){
     parseResult.push(GParser.parse(word));
