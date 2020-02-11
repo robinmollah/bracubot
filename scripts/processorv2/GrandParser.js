@@ -2,14 +2,22 @@
 class GrandParser {
     constructor(){
         this.parser = [];
+        this.parseResult = [];
     }
 
     parse(word){
-        let parseResult = [];
+        /*
+        Example parseResult:
+        [
+            {intent: 'room'},
+            {course_code: 'cse111'},
+            {section: 1}
+        ]
+         */
         for(let parser of this.parser){
-            parseResult.push(parse(word));
+            this.parseResult.push(parse(word));
         }
-        return parseResult;
+        return this.parseResult;
     }
 
     add(parser){
@@ -34,5 +42,15 @@ class GrandParser {
             }
         }
         return false;
+    }
+
+    toQuery(){
+        // TODO convert the this.parseResult to query
+        /*
+        Example Query:
+        {intent: 'room',
+         course_code: 'cse111',
+         section: 1}
+         */
     }
 }
