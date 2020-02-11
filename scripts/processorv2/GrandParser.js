@@ -36,4 +36,4 @@ class GrandParser {
     }
 }
 
-export default GrandParser;
+module.exports = GrandParser;

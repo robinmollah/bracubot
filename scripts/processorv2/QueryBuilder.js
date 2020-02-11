@@ -1,6 +1,6 @@
 let GrandParser = require('./GrandParser');
 
-let sentence = "Who is AAR?";
+let sentence = "room number of cse111 section 1";
 let GParser = new GrandParser();
 
 /*
@@ -18,7 +18,7 @@ for(let word of sentence){
 }
 
 function toQuery(){
-    // TODO convert the this.parseResult to query
+    // TODO convert the parseResult to query
     /*
     Example Query:
     {intent: 'room',
