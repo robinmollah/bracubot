@@ -22,7 +22,8 @@ function toQuery(){
     /*
     Example Query:
     {intent: 'room',
-     course_code: 'cse111',
-     section: 1}
+     params: [{course_code: 'cse111'},
+            {section: 1}]
+    }
      */
 }
