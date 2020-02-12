@@ -1,11 +1,11 @@
 let queries = [
     {intent: 'room',
-    course_code: 'cse111',
-    section: 1},
+        params: [{course_code: 'cse111'},
+            {section: 1}]
+    },
     {intent: 'room',
-    initial: 'aar'},
-    {intent: 'name',
-    initial: 'dzk'},
+        params: [{initial: 'aar'}]
+    }
 ];
 
 for(let query of queries){
@@ -17,4 +17,8 @@ Which collection(s) contains the answer
  */
 function getCollection(){
 
+}
+
+function getTemplate(){
+    
 }
