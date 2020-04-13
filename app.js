@@ -53,6 +53,7 @@ app.get('/',function(req, res){
     res.render('index.pug',{page : 'Hi', menuId: 4});
 });
 
+
 app.get('/privacy_policy',function(req,res){
     res.sendFile(__dirname + '/views/privacy_policy.html');
 });

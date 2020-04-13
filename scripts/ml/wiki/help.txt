@@ -1,0 +1,4 @@
+Help Documentation
+    query [ADD|REMOVE|GET]
+    sentence [ADD|REMOVE|GET]
+    word [ADD|REMOVE|GET]
