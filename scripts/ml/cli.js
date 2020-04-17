@@ -8,9 +8,9 @@ let files = {
 };
 
 let csv_files = {
-	query: 'queries.csv',
-	sentences: 'sentences.csv',
-	words: 'words.csv'
+	query: 'csv/queries.csv',
+	sentences: 'csv/sentences.csv',
+	words: 'csv/words.csv'
 };
 
 let argv = process.argv.slice(2);
@@ -50,9 +50,12 @@ switch(argv[0]){
 		}
 		break;
 	case 'sentence':
+		const CSV = require('./CSVParser.js')
+		const parser = new CSV.CSV(csv_files.sentences);
+		
 		switch(argv[1]){
 			case 'add':
-				console.log("Adding words", argv.slice(1));
+				parser.append('\n' + argv[2]);
 				break;
 			case 'get':
 				console.log("Getting words");
