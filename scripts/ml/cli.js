@@ -7,6 +7,12 @@ let files = {
 	words: 'words.json',
 };
 
+let csv_files = {
+	query: 'queries.csv',
+	sentences: 'sentences.csv',
+	words: 'words.csv'
+};
+
 let argv = process.argv.slice(2);
 switch(argv[0]){
 	case 'help':
@@ -55,11 +61,21 @@ switch(argv[0]){
 				console.log("Removing words", argv.slice(1));
 				break;
 			default:
+				console.log("" +
+					"Add sentence\n" +
+					"get\n" +
+					"remove sentence");
 		}
 		break;
 	default:
 }
 console.log(argv);
+
+if(argv.length == 0){
+	fs.readFile('wiki/help.txt', 'utf8', (err, data) => {
+		console.log(data);
+	});
+}
 
 
 /*
