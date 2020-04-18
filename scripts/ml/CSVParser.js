@@ -6,7 +6,7 @@ class CSV{
 	}
 	
 	append(data){
-		fs.appendFile(this.file_name, data, console.log);
+		fs.appendFile(this.file_name, '\n' + data, console.log);
 	}
 	
 	delete(data){

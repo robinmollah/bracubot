@@ -1,5 +1,6 @@
 let process = require('process');
 let fs = require('fs');
+const CSV = require('./CSVParser.js');
 
 let files = {
 	query : 'queries.json',
@@ -36,9 +37,11 @@ switch(argv[0]){
 		}
 		break;
 	case 'words':
+		let parser = new CSV.CSV(csv_files.words);
+		
 		switch(argv[1]){
 			case 'add':
-				console.log("Adding words", argv.slice(1));
+				parser.append(argv.slice(2));
 				break;
 			case 'get':
 				console.log("Getting words");
@@ -50,12 +53,11 @@ switch(argv[0]){
 		}
 		break;
 	case 'sentence':
-		const CSV = require('./CSVParser.js')
-		const parser = new CSV.CSV(csv_files.sentences);
+		parser = new CSV.CSV(csv_files.sentences);
 		
 		switch(argv[1]){
 			case 'add':
-				parser.append('\n' + argv[2]);
+				parser.append(argv[2]);
 				break;
 			case 'get':
 				console.log("Getting words");
