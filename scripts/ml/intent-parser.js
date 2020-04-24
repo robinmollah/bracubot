@@ -1,54 +1,30 @@
-let fs = require('fs');
+let csv = require('./CSVParser');
 
-let sentences = [
-	"room number of aar",
-	"full name of aar",
-	"who is aar",
-	"initial of annajiat sir",
-	"courses taken by aar"
-];
+function parse(sentence){
+	// TODO load words
+	let wordsReader = new csv.CSV('./csv/words.csv');
+	wordsReader.get().then(
+		(wordIntentKV) => {
+			let wiKV = wordIntentKV.split("\n");
+			let words = wiKV.map((value) => value.split(',')[0]);
+			sentence = sentence.toLowerCase();
+			let wordVector = words.map((word, index) =>
+				sentence.indexOf(word) > -1 ? index+1 : -1
+			); // For safety
+			console.log(wordVector);
+			let x = -1;
+			let y = wordVector.forEach((value) => {
+				if(x == -1){
+					if(value > -1) x += value;
+				} else {
+					if(value > -1) console.error("Collision found");
+				}
+			});
+			console.log(x);
+		}
+	);
+	// TODO look for words
+	// return the intent
+}
 
-let words = [
-	{
-		word: 'room number',
-		intent: 'room_number',
-	},
-	{
-		word: 'full name',
-		intent: 'name'
-	},
-	{
-		word: 'initial',
-		intent: 'initial'
-	}
-];
-
-let queries = [
-	{
-		intent: 'room_number',
-		answer: 'room number of ' + ' is ' + 'UBxxxxx'
-	},
-	{
-		intent: 'name',
-		answer: 'full name of aar is annajiat alim rasel'
-	},
-	{
-		intent: 'initial',
-		answer: 'Initial of Annajiat Alim Rasel sir is AAR'
-	}
-];
-
-let out = fs.readFile('test_sentences.json', (err) => {
-	console.log(err);
-});
-
-console.log(out);
-
-//
-// fs.readFile('words.json', JSON.stringify(words), (err) => {
-// 	console.log(err);
-// });
-//
-// fs.readFile('queries.json', JSON.stringify(queries), (err) => {
-// 	console.log(err);
-// });
+parse("Full name of aar");
