@@ -6,21 +6,24 @@ function parse(sentence){
 	wordsReader.get().then(
 		(wordIntentKV) => {
 			let wiKV = wordIntentKV.split("\n");
-			let words = wiKV.map((value) => value.split(',')[0]);
+			let words = wiKV.map((value) => [value.split(',')[0], value.split(',')[2]]);
 			sentence = sentence.toLowerCase();
-			let wordVector = words.map((word, index) =>
-				sentence.indexOf(word) > -1 ? index+1 : -1
-			); // For safety
+			console.log(words);
+			let wordVector = words.map((word) =>
+				sentence.indexOf(word[0]) > -1 ? parseInt(word[1]) : -1
+			);
 			console.log(wordVector);
-			let x = -1;
-			let y = wordVector.forEach((value) => {
-				if(x == -1){
-					if(value > -1) x += value;
-				} else {
-					if(value > -1) console.error("Collision found");
+			let queries = new csv.CSV('./csv/queries.csv');
+			wordVector = wordVector.filter((value) => value != -1);
+			queries.get().then(
+				(queries) => {
+					wordVector.forEach((value) => {
+						let qKV = queries.split("\n");
+						console.log(qKV[value]);
+					});
 				}
-			});
-			console.log(x);
+			);
+			
 		}
 	);
 	// TODO look for words
@@ -28,3 +31,7 @@ function parse(sentence){
 }
 
 parse("Full name of aar");
+parse("hellooooo");
+parse("who is aar");
+parse("Room number of aar");
+parse("aar's room number");
