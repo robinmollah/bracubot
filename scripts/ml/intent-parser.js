@@ -1,14 +1,13 @@
 let csv = require('./CSVParser');
 
 function parse(sentence){
-	// TODO load words
 	let wordsReader = new csv.CSV('./csv/words.csv');
 	wordsReader.get().then(
 		(wordIntentKV) => {
 			let wiKV = wordIntentKV.split("\n"); // Each lines are seperated
 			// Convert [word,intent,intent_id] => [word, intent_id]
 			let words = wiKV.map((value) => [value.split(',')[0], value.split(',')[2]]);
-			// Converr tthe given sentence to lowercase
+			// Convert the given sentence to lowercase
 			sentence = sentence.toLowerCase();
 			let wordVector = words.map((word) =>
 				sentence.indexOf(word[0]) > -1 ? parseInt(word[1]) : -1
@@ -23,11 +22,10 @@ function parse(sentence){
 					wordVector.forEach((value) => {
 						let qKV = queries.split("\n");
 						// print the corresponding one
-						console.log(qKV[value]);
+						console.log(sentence, qKV[value]);
 					});
 				}
 			);
-			
 		}
 	);
 	// TODO look for words

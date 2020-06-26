@@ -1,7 +1,7 @@
 let FS = require('./db/firestore');
 
 // insertFailcase("Email id of THD", "NI");
-getFailcases();
+// getFailcases();
 
 function insertFailcase(sentence, category) {
     let COLLECTION = FS.collection('failcases');

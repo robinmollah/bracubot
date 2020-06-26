@@ -1,10 +1,13 @@
 let express = require('express');
 const bodyParser = require('body-parser');
+
 let webhooks = require('./routes/webhook');
-let api = require('./routes/botapi');
+let botapi = require('./routes/botapi');
 let usisApi = require('./routes/usis_api');
 let unit_test = require('./scripts/test/unit_test');
 let connector = require('./routes/connector');
+const manage_api = require('./routes/data/management');
+
 let app = express();
 let path = require('path');
 
@@ -28,9 +31,10 @@ app.use(function (req, res, next) {
 });
 app.use(bodyParser.json());
 app.use(webhooks);
+app.use(manage_api);
 
 app.use(usisApi);
-app.use(api);
+app.use(botapi);
 app.use(connector);
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
