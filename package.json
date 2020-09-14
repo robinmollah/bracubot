@@ -25,6 +25,7 @@
     "helmet": "^3.21.2",
     "http-errors": "~1.6.2",
     "jwks-rsa": "^1.6.0",
+    "localtunnel": "^2.0.0",
     "md5": "^2.2.1",
     "morgan": "^1.9.1",
     "mysql": "^2.17.1",
