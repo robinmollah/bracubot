@@ -17,7 +17,7 @@ var DB = (function () {
         pool.getConnection(function (err, connection) {
             if (err) {
                 console.error(err);
-                connection.release();
+                if(connection) connection.release();
                 callback(null, err);
                 throw err;
             }
