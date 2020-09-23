@@ -1,0 +1,80 @@
+BracU Bot
+You can write "help" anytime to get this information.
+	Ask any type of questions. For instance:
+	email id of sli?
+	mail id of annajiat sir?
+	Who takes xxx110 course?
+	room number of dzk?
+	full name of mih?
+	As per your request other features will be added as well.
+Md Zami Al Zunaed Farabe
+Who takes Cse110 course?
+BracU Bot
+CSE110 is taken by: MSI,TBA,ROY,NZN,MTF,SEJ,RKS,ISH
+Md Zami Al Zunaed Farabe
+Sej
+BracU Bot
+Sorry can't understand you.
+Md Zami Al Zunaed Farabe
+Full name of sej
+BracU Bot
+Full name of SEJ is Sifat E Jahan
+MAR 15, 2020, 8:36 PM
+Md Zami Al Zunaed Farabe
+Who is mlr
+BracU Bot
+Full name of MLR is Mr. Muhammad Lutfor Rahman
+Md Zami Al Zunaed Farabe
+Mlr email id
+BracU Bot
+Sorry can't understand you.
+Md Zami Al Zunaed Farabe
+Email id of mlr
+BracU Bot
+There is no information found regarding your query.
+Md Zami Al Zunaed Farabe
+Email id of MLR
+BracU Bot
+There is no information found regarding your query.
+Md Zami Al Zunaed Farabe
+Email id of MLR?
+BracU Bot
+There is no information found regarding your query.
+MAR 24, 2020, 9:45 PM
+Md Zami Al Zunaed Farabe
+email id of fhd?
+BracU Bot
+There is no information found regarding your query.
+Md Zami Al Zunaed Farabe
+Full name of fhd
+BracU Bot
+Full name of FHD is Farhana Shahid
+MAR 25, 2020, 10:28 PM
+Md Zami Al Zunaed Farabe
+Full name of mzh
+BracU Bot
+There is no information found regarding your query.
+AUG 6, 2020, 12:53 AM
+Md Zami Al Zunaed Farabe
+Full name of SAF
+BracU Bot
+Full name of SAF is Safwana Haque
+AUG 10, 2020, 8:58 PM
+Md Zami Al Zunaed Farabe
+Email id of nazmus sakeef
+BracU Bot
+Here is the email address of Nazmus Sakeef sir, nazmussakeef1700@gmail.com
+AUG 14, 2020, 10:04 PM
+Md Zami Al Zunaed Farabe
+Email id of ach
+BracU Bot
+Here is the email address of Dr. Amitabha Chakrabarty  sir, amitabha@bracu.ac.bd
+3:45 AM
+Md Zami Al Zunaed Farabe
+Full name of fba
+BracU Bot
+Full name of FBA is Faisal Bin Ashraf
+Md Zami Al Zunaed Farabe
+Full name of tnr
+BracU Bot
+Full name of TNR is Tanvir Rahman
