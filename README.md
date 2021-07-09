@@ -1,6 +1,6 @@
 # BracuBot
 This bot is intended to reply frequently asked questions
-of students especially during preadvising and advising time.
+of students especially during pre-advising and advising time.
 
 ### Getting started
 Open this link: http://m.me/bracubot

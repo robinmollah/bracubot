@@ -25,8 +25,24 @@ router.post('/webhook', (req, res) => {
         // Returns a '200 OK' response to all requests
         res.status(200).send('EVENT_RECEIVED');
     } else {
+        console.log("body", body);
         // Returns a '404 Not Found' if event is not from a page subscription
-        res.sendStatus(404);
+        body.entry.forEach(function(entry) {
+            console.log("entry", entry);
+            let webhook_event = entry.messaging[0];
+            console.log("webhook_event", webhook_event);
+            let sender_id = null;
+            // fbapi.setSenderId(sender_id);
+
+            if(webhook_event.message){
+                handleMessage(sender_id, webhook_event.message);
+            } else if(webhook_event.postback){
+                handlePostback(sender_id, webhook_event.postback);
+            }
+        });
+
+        // Returns a '200 OK' response to all requests
+        res.status(200).send('EVENT_RECEIVED');
     }
 
 });

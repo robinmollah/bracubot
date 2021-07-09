@@ -2,7 +2,7 @@ let express = require('express');
 const bodyParser = require('body-parser');
 
 let webhooks = require('./routes/webhook');
-let botapi = require('./routes/botapi');
+// let botapi = require('./routes/botapi');
 let usisApi = require('./routes/usis_api');
 let unit_test = require('./scripts/test/unit_test');
 let connector = require('./routes/connector');
@@ -34,7 +34,7 @@ app.use(webhooks);
 app.use(manage_api);
 
 app.use(usisApi);
-app.use(botapi);
+// app.use(botapi);
 app.use(connector);
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));

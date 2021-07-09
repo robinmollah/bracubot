@@ -9,6 +9,10 @@ module.exports.setSenderId = function(senderid){
 };
 
 module.exports.send = function(response){
+    if(!senderId) {
+        console.log("Response", response);
+        return;
+    }
     let request_body;
     request_body = {
         'recipient': {

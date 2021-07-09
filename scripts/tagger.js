@@ -3,23 +3,15 @@ let DBPromise = require('./db/conn-promise');
 const firestore = require('./db/firestore');
 
 let regex_list = function(fetchedPatterns){
-    /*
-    DBPromise.query('SELECT * FROM patterns', null).then(
-        (data) => {
-            fetchedPatterns(data);
-            // DBPromise.close();
-        }
-    ).catch((reason) => {
-        console.error(reason);
-    })*/
-
     firestore.collection('patterns').get()
         .then(snapshot => {
             let patterns = new Array();
             snapshot.forEach(doc => patterns.push(doc.data()));
             fetchedPatterns(patterns);
         })
-        .catch(err => console.log("error fetching patterns: " + err));
+        .catch(err =>
+            console.log("error fetching patterns: [possibly failed to login to firestore]", err)
+        );
 };
 
 let tag = function (msg, pattern_list, callback) {
