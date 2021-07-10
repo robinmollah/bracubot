@@ -5,6 +5,11 @@ of students especially during pre-advising and advising time.
 ### Getting started
 Open this link: http://m.me/bracubot
 
+### Deployment
+* Add GCP Service Account
+* Add Database credentials
+* Take Facebook Page Access Token from Facebook developers website.
+
 ### Tasks
 - [ ] Make a safe `dump.sql`
 - [ ] Make an webscraper in following repository [REPOSITORY LINK](http://gitbub.com/robinmollah)

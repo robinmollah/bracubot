@@ -1,11 +1,11 @@
-bracu-bot-96c1c85a031b.json
 people.json
 node_modules/
 .idea/
-.env*
+.env
 bfg.jar
-app.yaml
 *.csv
 !*queries.csv
 !*words.csv
 class_routine_json2csv
+*.lock
+bracu-bot-cdb7bb7996dc.json

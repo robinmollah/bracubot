@@ -1,17 +1,17 @@
-var mysql = require("mysql");
-const env = require('dotenv').config();
+const mysql = require("mysql");
+require('dotenv').config();
 
-
-var pool = mysql.createPool({
+const DB_CONFIG = {
     connectionLimit : 10,
     host: process.env.DB_HOST,
     user: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME
-});
+}
+let pool = mysql.createPool(DB_CONFIG);
 
 
-var DB = (function () {
+let DB = (function () {
 
     function _query(query, params, callback) {
         pool.getConnection(function (err, connection) {
@@ -26,8 +26,7 @@ var DB = (function () {
                 connection.release();
                 if (!err) {
                     callback(rows);
-                }
-                else {
+                } else {
                     callback(null, err);
                 }
             });
