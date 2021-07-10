@@ -1,13 +1,11 @@
-let debug = require("debug")("bracubot:server");
-let DBPromise = require('./db/conn-promise');
 const firestore = require('./db/firestore');
 
-let regex_list = function(fetchedPatterns){
-    firestore.collection('patterns').get()
+let regex_list = function(){
+    return firestore.collection('patterns').get()
         .then(snapshot => {
             let patterns = new Array();
             snapshot.forEach(doc => patterns.push(doc.data()));
-            fetchedPatterns(patterns);
+            return patterns;
         })
         .catch(err =>
             console.log("error fetching patterns: [possibly failed to login to firestore]", err)
@@ -15,21 +13,23 @@ let regex_list = function(fetchedPatterns){
 };
 
 let tag = function (msg, pattern_list, callback) {
-    let pattern;
-    for(pattern of pattern_list){
-        let pat = new RegExp(pattern.pattern, 'gim');
-        let match = pat.exec(msg);
-        if(!match) continue;
-        if(pattern.query && pattern.query.indexOf('LIKE') > -1){
-            match[1] = '%' + match[1] + '%'; // Resolves SQL Like statement issue
+    return new Promise((resolve, reject) => {
+        for(let pattern of pattern_list){
+            let pat = new RegExp(pattern.pattern, 'gim');
+            let match = pat.exec(msg);
+            if(!match) continue;
+            if(pattern.query && pattern.query.indexOf('LIKE') > -1){
+                match[1] = '%' + match[1] + '%'; // Resolves SQL Like statement issue
+            }
+            match.shift();
+            // callback(pattern, match);
+            resolve({
+                pattern: pattern,
+                values: match
+            });
         }
-        match.shift();
-        callback(pattern, match);
-        return pattern;
-    }
-    console.error("No match found");
-    callback(null, null);
-    return null;
+        reject("No match found");
+    });
 };
 
 module.exports.tag = tag;

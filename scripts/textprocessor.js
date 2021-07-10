@@ -5,20 +5,20 @@ const failcases = require('./failcases');
 
 test = false;
 module.exports.test = test;
-var query;
+let query;
 
-let process = function (recieved_message){
+let process = async function (recieved_message){
     query = recieved_message;
-    tagger.fetchPatterns(function(data){
-        return tagger.tag(recieved_message, data, tagEnd);
-    });
-    function tagEnd(pattern, values){
-        if(pattern) {
-            templates.populate(pattern, values, reply);
-        } else {
-            reply();
-        }
-    };
+    let patterns = await tagger.fetchPatterns(); // retrieves all patterns from firebase
+    tagger.tag(recieved_message, patterns) // tags the message
+        .then((patternPack) => {
+            if(patternPack.pattern) {
+                templates.populate(patternPack.pattern, patternPack.values, reply);
+            } else {
+                reply();
+            }
+        })
+        .catch(reply);
 };
 
 let reply = function(msg, err){
