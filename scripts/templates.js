@@ -1,14 +1,14 @@
 let util = require('util');
 let debug = require('debug')('bracubot:server');
 let DB = require('./db/conn');
-let SS = require('./special_search');
+let SpecialSearch = require('./special_search');
 let failcases = require('./failcases');
 
 let populate = function(pattern, matched, reply){
     if(pattern.query){
         if(pattern.query.indexOf("SPECIAL(") > -1){
             let specialFunc = pattern.query.match(/SPECIAL\((\w+)\)/i);
-            matched[1] = SS.run(specialFunc[1], matched[1]); // Special parameter is always the second one
+            matched[1] = SpecialSearch.run(specialFunc[1], matched[1]); // Special parameter is always the second one
             pattern.query = pattern.query.replace(/SPECIAL\(\w*\)/i, "?");
         }
         matched = matched + "";
@@ -26,7 +26,7 @@ let populate = function(pattern, matched, reply){
         }
         console.log(data);
         if(!data.length){
-            reply("There is no information found regarding your query.", "NP");
+            reply("I don't know it. But can you tell me so that I can remember it and help others?", "NP");
             return;
         }
         if(!pattern.multi){

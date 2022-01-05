@@ -1,4 +1,10 @@
 const firestore = require('./db/firestore');
+let failedAnswers = [
+    "Sorry, I don't have an answer for this query.",
+    "No idea, do you know that?",
+    "I don't have an answer, but you can help me to improve. Type 'contribute'.",
+    "Sorry, I cannot understand your query."
+]
 
 module.exports.fetchPatterns = () => {
     return firestore.collection('patterns').get()
@@ -28,6 +34,6 @@ module.exports.tag = function (msg, pattern_list) {
                 values: match
             });
         }
-        reject("No match found");
+        reject(failedAnswers[Math.floor(Math.random() * failedAnswers.length)]);
     });
 };
