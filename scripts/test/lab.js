@@ -6,12 +6,14 @@ test = false;
 module.exports.test = test;
 let query, res;
 
-let process = function (recieved_message, response){
+let process = async function (recieved_message, response){
     res = response;
     query = recieved_message;
-    tagger.fetchPatterns(function(data){
-        return tagger.tag(recieved_message, data, tagEnd);
-    });
+    // TODO cache patterns in local repository
+    let data = await tagger.fetchPatterns();
+    console.log(data.length);
+    let tags = await tagger.tag(recieved_message, data);
+    tagEnd(tags.pattern, tags.values);
     function tagEnd(pattern, values){
         console.log("Tagged");
         if(pattern) {

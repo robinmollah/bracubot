@@ -1,6 +1,6 @@
 const firestore = require('./db/firestore');
 
-let regex_list = function(){
+module.exports.fetchPatterns = () => {
     return firestore.collection('patterns').get()
         .then(snapshot => {
             let patterns = new Array();
@@ -12,7 +12,7 @@ let regex_list = function(){
         );
 };
 
-let tag = function (msg, pattern_list, callback) {
+module.exports.tag = function (msg, pattern_list) {
     return new Promise((resolve, reject) => {
         for(let pattern of pattern_list){
             let pat = new RegExp(pattern.pattern, 'gim');
@@ -31,6 +31,3 @@ let tag = function (msg, pattern_list, callback) {
         reject("No match found");
     });
 };
-
-module.exports.tag = tag;
-module.exports.fetchPatterns = regex_list;
